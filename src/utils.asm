@@ -11,6 +11,17 @@ macro print string, len {
 	\}
 }
 
+macro print_on_board x, y, string {
+	mov al, [x]
+	add al, 2
+
+	mov bl, [y]
+	add bl, 3
+
+	move_cursor al, bl
+	print string
+}
+
 macro ntos n, b {
         mov al, [n]
         xor ah, ah
