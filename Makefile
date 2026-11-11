@@ -1,6 +1,9 @@
-.PHONY: all clean
+.PHONY: all clean run
 
 all: out/sblove
+
+run: out/sblove
+	out/sblove
 
 out/sblove: src/*
 	mkdir -p out
