@@ -27,3 +27,20 @@ macro ntos n, b {
 macro read buffer, len {
 	syscall3 SYS_read, STDIN, buffer, len
 }
+
+macro random {
+	syscall3 SYS_getrandom, randombuf, 4, 0
+}
+
+; eax = number [min;max)
+macro randr min, max {
+	random
+	mov eax, dword [randombuf]
+	xor edx, edx
+	mov ecx, max - min
+	div ecx
+	if min <> 0
+		add edx, min
+	end if
+	mov eax, edx
+}

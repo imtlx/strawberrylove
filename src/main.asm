@@ -11,6 +11,7 @@ segment readable writeable
 sb_label db 'Strawberries: '
 sb_label_len = $ - sb_label
 
+randombuf rb 4
 number db 0
 numberbuf rb 2
 input rb 1
@@ -19,6 +20,7 @@ segment readable executable
 
 _start:
 	term_init
+	call .randnum
 
 .loop:
 	render
@@ -29,13 +31,18 @@ _start:
 
 	cmp byte [input], ' '
 	jne .space_skip
-	inc byte [number]
+	call .randnum
 	.space_skip:
 
 	cmp byte [input], 'q'
 	je .exit
 
 	jmp .loop
+
+.randnum: ; random number in range 0..99
+	randr 0, 100
+	mov [number], al
+	ret
 
 .exit:
 	term_cleanup

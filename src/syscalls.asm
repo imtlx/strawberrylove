@@ -2,6 +2,7 @@ SYS_read 	= 0
 SYS_write	= 1
 SYS_ioctl	= 16
 SYS_exit	= 60
+SYS_getrandom	= 318
 
 STDIN		= 0
 STDOUT		= 1
