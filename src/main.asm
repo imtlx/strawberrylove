@@ -8,19 +8,21 @@ include 'src/render.asm'
 
 segment readable writeable
 
-message db 'Bnuy! Strawberry!', 10
-message_len = $ - message
+sb_label db 'Strawberries: '
+sb_label_len = $ - sb_label
 
-number db '0'
+number db 0
+numberbuf rb 2
 input rb 1
 
 segment readable executable
 
 _start:
 	term_init
-	print message, message_len
 
 .loop:
+	render
+
 	read input, 1
 	test rax, rax
 	jle .exit
@@ -33,7 +35,6 @@ _start:
 	cmp byte [input], 'q'
 	je .exit
 
-	render
 	jmp .loop
 
 .exit:

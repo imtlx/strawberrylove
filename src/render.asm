@@ -1,4 +1,6 @@
 macro render {
 	screen_clear
-	print number, 1
+	ntos number, numberbuf
+	print sb_label
+	print numberbuf, 2
 }
