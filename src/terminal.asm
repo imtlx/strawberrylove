@@ -90,6 +90,7 @@ macro move_cursor x, y {
 }
 
 macro term_init {
+	local .error, .done
 	syscall3 SYS_ioctl, STDIN, TCGETS, original_termios
 	test rax, rax
 	js .error
@@ -115,6 +116,9 @@ macro term_init {
 	enter_alt_screen
 	clear_screen
 	hide_cursor
+	jmp .done
+	.error: exit 1
+	.done:
 }
 
 macro term_cleanup {
