@@ -14,9 +14,8 @@ segment readable executable
 _start:
 	term_init
 	call generate_strawberry
+	call render
 .loop:
-	render
-
 	read input, 1
 	test rax, rax
 	jle .exit
@@ -27,6 +26,7 @@ _start:
 
 	call check_collision
 
+	call render
 	jmp .loop
 
 .exit:
