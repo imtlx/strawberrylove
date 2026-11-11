@@ -33,6 +33,10 @@ cursor_hide_len = $ - cursor_hide
 cursor_show db 27, '[?25h'
 cursor_show_len = $ - cursor_show
 
+cursorx rb 1
+cursory rb 1
+cursorbuf rb 32
+
 segment readable executable
 
 macro enter_alt_screen {
@@ -57,6 +61,32 @@ macro show_cursor {
 
 macro screen_clear {
 	print screen_clear
+}
+
+macro move_cursor x, y {
+        mov byte [cursorx], x
+        mov byte [cursory], y
+
+        mov byte [cursorbuf], 27
+        mov byte [cursorbuf+1], '['
+
+        ntos cursory, numberbuf
+        mov al, [numberbuf]
+        mov [cursorbuf+2], al
+        mov al, [numberbuf+1]
+        mov [cursorbuf+3], al
+
+        mov byte [cursorbuf+4], ';'
+
+        ntos cursorx, numberbuf
+        mov al, [numberbuf]
+        mov [cursorbuf+5], al
+        mov al, [numberbuf+1]
+        mov [cursorbuf+6], al
+
+        mov byte [cursorbuf+7], 'H'
+
+        print cursorbuf, 8
 }
 
 macro term_init {
