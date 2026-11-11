@@ -36,23 +36,27 @@ cursor_show_len = $ - cursor_show
 segment readable executable
 
 macro enter_alt_screen {
-	syscall3 SYS_write, STDOUT, alt_enter, alt_enter_len
+	print alt_enter, alt_enter_len
 }
 
 macro leave_alt_screen {
-	syscall3 SYS_write, STDOUT, alt_leave, alt_leave_len
+	print alt_leave, alt_leave_len
 }
 
 macro clear_screen {
-	syscall3 SYS_write, STDOUT, screen_clear, screen_clear_len
+	print screen_clear, screen_clear_len
 }
 
 macro hide_cursor {
-	syscall3 SYS_write, STDOUT, cursor_hide, cursor_hide_len
+	print cursor_hide, cursor_hide_len
 }
 
 macro show_cursor {
-	syscall3 SYS_write, STDOUT, cursor_show, cursor_show_len
+	print cursor_show, cursor_show_len
+}
+
+macro screen_clear {
+	print screen_clear, screen_clear_len
 }
 
 macro term_init {
