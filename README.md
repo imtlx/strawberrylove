@@ -1,7 +1,6 @@
 # strawberrylove
 
-A cute arcade game where you contol a lil' bnuy, explore a grid-based board, and collect straberries.
-Written in x86-64 assembly using FASM.
+A tiny arcade game about a lil' bnuy and their love for strawberries. Written in x86-64 assembly using FASM.
 
 ## Build
 
@@ -9,19 +8,30 @@ Written in x86-64 assembly using FASM.
 make
 ```
 
-## Usage
+## Run
 
 ```bash
-out/bnuy
+make run
 ```
 
-Jump on the board, collect strawberries and have fun!
+Or run it directly:
+
+```bash
+out/sblove
+```
 
 ## Requirements
 
 - Linux x86-64
 - FASM
 - Make
+
+## Controls
+
+| Key | Action |
+| :---: | --- |
+| `wasd` | Move |
+| `q` | Quit |
 
 ---
 
