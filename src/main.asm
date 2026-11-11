@@ -16,12 +16,41 @@ number db 0
 numberbuf rb 2
 input rb 1
 
+bunx db 9
+buny db 4
+bundx db 0
+bundy db 0
+bun db "🐇"
+bun_len = $ - bun
+
+sb db "🍓"
+sb_len = $ - sb
+sbx db 0
+sby db 0
+sb_count db 0
+
+newline db 13, 10
+newline_len = $ - newline
+board:
+db '+--------------------+', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '|                    |', 13 , 10
+db '+--------------------+'
+board_len = $ - board
+
 segment readable executable
 
 _start:
 	term_init
-	call .randnum
-
+	call .gen_sb
 .loop:
 	render
 
@@ -29,19 +58,25 @@ _start:
 	test rax, rax
 	jle .exit
 
-	cmp byte [input], ' '
-	jne .space_skip
-	call .randnum
-	.space_skip:
-
 	cmp byte [input], 'q'
 	je .exit
 
+	call .gen_sb
 	jmp .loop
 
-.randnum: ; random number in range 0..99
-	randr 0, 100
-	mov [number], al
+.gen_sb:
+.retry:
+	randr 0, 20
+	mov [sbx], al
+	randr 0, 10
+	mov [sby], al
+	mov al, [sbx]
+	cmp al, [bunx]
+	jne .done
+	mov al, [sby]
+	cmp al, [buny]
+	je .retry
+.done:
 	ret
 
 .exit:
