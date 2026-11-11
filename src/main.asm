@@ -32,18 +32,18 @@ sb_count db 0
 newline db 13, 10
 newline_len = $ - newline
 board:
-db '+--------------------+', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '|                    |', 13 , 10
-db '+--------------------+'
+db "+--------------------+", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "|                    |", 13 , 10
+db "+--------------------+"
 board_len = $ - board
 
 segment readable executable
@@ -58,10 +58,10 @@ _start:
 	test rax, rax
 	jle .exit
 
-	cmp byte [input], 'q'
+	cmp byte [input], "q"
 	je .exit
 
-	cmp byte [input], 'w'
+	cmp byte [input], "w"
 	jne .skip_w
 	mov al, [buny]
 	cmp al, 0
@@ -69,7 +69,7 @@ _start:
 	dec byte [buny]
 	.skip_w:
 
-	cmp byte [input], 's'
+	cmp byte [input], "s"
 	jne .skip_s
 	mov al, [buny]
 	cmp al, 9
@@ -77,7 +77,7 @@ _start:
 	inc byte [buny]
 	.skip_s:
 
-	cmp byte [input], 'a'
+	cmp byte [input], "a"
 	jne .skip_a
 	mov al, [bunx]
 	cmp al, 0
@@ -85,7 +85,7 @@ _start:
 	dec byte [bunx]
 	.skip_a:
 
-	cmp byte [input], 'd'
+	cmp byte [input], "d"
 	jne .skip_d
 	mov al, [bunx]
 	cmp al, 18

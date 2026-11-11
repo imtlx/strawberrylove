@@ -18,19 +18,19 @@ VTIME = 5
 original_termios termios
 raw_termios termios
 
-alt_enter db 27, '[?1049h'
+alt_enter db 27, "[?1049h"
 alt_enter_len = $ - alt_enter
 
-alt_leave db 27, '[?1049l'
+alt_leave db 27, "[?1049l"
 alt_leave_len = $ - alt_leave
 
-screen_clear db 27, '[2J', 27, '[H'
+screen_clear db 27, "[2J", 27, "[H"
 screen_clear_len = $ - screen_clear
 
-cursor_hide db 27, '[?25l'
+cursor_hide db 27, "[?25l"
 cursor_hide_len = $ - cursor_hide
 
-cursor_show db 27, '[?25h'
+cursor_show db 27, "[?25h"
 cursor_show_len = $ - cursor_show
 
 cursorx rb 1
@@ -68,7 +68,7 @@ macro move_cursor x, y {
         mov byte [cursory], y
 
         mov byte [cursorbuf], 27
-        mov byte [cursorbuf+1], '['
+        mov byte [cursorbuf+1], "["
 
         ntos cursory, numberbuf
         mov al, [numberbuf]
@@ -76,7 +76,7 @@ macro move_cursor x, y {
         mov al, [numberbuf+1]
         mov [cursorbuf+3], al
 
-        mov byte [cursorbuf+4], ';'
+        mov byte [cursorbuf+4], ";"
 
         ntos cursorx, numberbuf
         mov al, [numberbuf]
@@ -84,7 +84,7 @@ macro move_cursor x, y {
         mov al, [numberbuf+1]
         mov [cursorbuf+6], al
 
-        mov byte [cursorbuf+7], 'H'
+        mov byte [cursorbuf+7], "H"
 
         print cursorbuf, 8
 }

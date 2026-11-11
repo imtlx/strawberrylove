@@ -8,7 +8,7 @@ macro render {
 	ntos sb_count, numberbuf
 	print numberbuf, 2
 	jmp .continue
-	.fat:	
+	.fat:
 	print fat_label
 	.continue:
 	print newline

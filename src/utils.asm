@@ -17,10 +17,10 @@ macro ntos n, b {
         mov bl, 10
         div bl
 
-        add al, '0'
+        add al, "0"
         mov [b], al
 
-        add ah, '0'
+        add ah, "0"
         mov [b+1], ah
 }
 
