@@ -16,7 +16,7 @@ _start:
 	call generate_strawberry
 	call render
 .loop:
-	read input, 1
+	read STDIN, input, 1
 	test rax, rax
 	jle .exit
 

@@ -1,6 +1,5 @@
 segment readable writable
 struc termios {
-
 	.c_iflag dd ?
 	.c_oflag dd ?
 	.c_cflag dd ?
@@ -91,7 +90,7 @@ macro move_cursor x, y {
 
 macro term_init {
 	local .error, .done
-	syscall3 SYS_ioctl, STDIN, TCGETS, original_termios
+	ioctl STDIN, TCGETS, original_termios
 	test rax, rax
 	js .error
 
@@ -111,7 +110,7 @@ macro term_init {
 	mov byte [raw_termios.c_cc + VMIN], 1
 	mov byte [raw_termios.c_cc + VTIME], 0
 
-	syscall3 SYS_ioctl, STDIN, TCSETS, raw_termios
+	ioctl STDIN, TCSETS, raw_termios
 
 	enter_alt_screen
 	clear_screen
@@ -123,6 +122,6 @@ macro term_init {
 
 macro term_cleanup {
 	show_cursor
-	syscall3 SYS_ioctl, STDIN, TCSETS, original_termios
+	ioctl STDIN, TCSETS, original_termios
 	leave_alt_screen
 }

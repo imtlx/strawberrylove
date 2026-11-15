@@ -8,59 +8,48 @@ STDIN		= 0
 STDOUT		= 1
 STDERR		= 2
 
-macro syscall0 number {
+macro syscall number {
 	mov eax, number
 	syscall
 }
-
-macro syscall1 number, arg1 {
-	mov eax, number
-	mov rdi, arg1
-	syscall
+macro exit c {
+	mov edi, c
+	syscall SYS_exit
 }
 
-macro syscall2 number, arg1, arg2 {
-	mov eax, number
-	mov rdi, arg1
-	mov rsi, arg2
-	syscall
+macro write fd, buffer, len {
+        match , len \{
+		mov edi, fd
+		mov rsi, buffer
+		mov edx, buffer#_len
+                syscall SYS_write
+        \}
+        match any, len \{
+		mov edi, fd
+		mov rsi, buffer
+		mov edx, len
+                syscall SYS_write
+        \}
 }
 
-macro syscall3 number, arg1, arg2, arg3 {
-	mov eax, number
-	mov rdi, arg1
-	mov rsi, arg2
-	mov rdx, arg3
-	syscall
+macro read fd, buffer, len {
+	mov edi, fd
+	mov rsi, buffer
+	mov edx, len
+	syscall SYS_read
 }
 
-macro syscall4 number, arg1, arg2, arg3, arg4 {
-	mov eax, number
-	mov rdi, arg1
-	mov rsi, arg2
-	mov rdx, arg3
-	mov r10, arg4
-	syscall
+macro getrandom buffer, len {
+	mov rdi, buffer
+	mov esi, len
+	xor edx, edx
+	syscall SYS_getrandom
 }
 
-macro syscall5 number, arg1, arg2, arg3, arg4, arg5 {
-	mov eax, number
-	mov rdi, arg1
-	mov rsi, arg2
-	mov rdx, arg3
-	mov r10, arg4
-	mov r8, arg5
-	syscall
-}
-
-macro syscall6 number, arg1, arg2, arg3, arg4, arg5, arg6 {
-	mov eax, number
-	mov rdi, arg1
-	mov rsi, arg2
-	mov rdx, arg3
-	mov r10, arg4
-	mov r8, arg5
-	mov r9, arg6
-	syscall
+macro ioctl fd, op, argp {
+	mov edi, fd
+	mov esi, op
+	mov rdx, argp
+	syscall SYS_ioctl
 }
 

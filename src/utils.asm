@@ -1,14 +1,5 @@
-macro exit code {
-	syscall1 SYS_exit, code
-}
-
 macro print string, len {
-	match , len \{
-		syscall3 SYS_write, STDOUT, string, string#_len
-	\}
-	match any, len \{
-		syscall3 SYS_write, STDOUT, string, len
-	\}
+	write STDOUT, string, len
 }
 
 macro print_on_board x, y, string {
@@ -35,17 +26,9 @@ macro ntos n, b {
         mov [b+1], ah
 }
 
-macro read buffer, len {
-	syscall3 SYS_read, STDIN, buffer, len
-}
-
-macro random {
-	syscall3 SYS_getrandom, randombuf, 4, 0
-}
-
 ; eax = number [min;max)
 macro randr min, max {
-	random
+	getrandom randombuf, 4
 	mov eax, dword [randombuf]
 	xor edx, edx
 	mov ecx, max - min
