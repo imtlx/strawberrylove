@@ -18,19 +18,10 @@ original_termios termios
 raw_termios termios
 
 alt_enter db 27, "[?1049h"
-alt_enter_len = $ - alt_enter
-
 alt_leave db 27, "[?1049l"
-alt_leave_len = $ - alt_leave
-
 screen_clear db 27, "[2J", 27, "[H"
-screen_clear_len = $ - screen_clear
-
 cursor_hide db 27, "[?25l"
-cursor_hide_len = $ - cursor_hide
-
 cursor_show db 27, "[?25h"
-cursor_show_len = $ - cursor_show
 
 cursorx rb 1
 cursory rb 1

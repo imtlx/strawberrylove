@@ -1,5 +1,16 @@
+struc db [data] {
+	common
+	. db data
+	.len = $ - .
+}
+
 macro print string, len {
-	write STDOUT, string, len
+        match , len \{
+		write STDOUT, string, string#.len
+        \}
+        match any, len \{
+		write STDOUT, string, len
+        \}
 }
 
 macro print_on_board x, y, string {
@@ -38,3 +49,4 @@ macro randr min, max {
 	end if
 	mov eax, edx
 }
+

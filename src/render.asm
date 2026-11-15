@@ -4,7 +4,7 @@ draw_ui:
 
 	print sb_label
 	ntos sb_count, numberbuf
-	print numberbuf, 2
+	print numberbuf
 	ret
 
 	.fat:

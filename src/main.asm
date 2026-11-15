@@ -1,9 +1,9 @@
 format ELF64 executable 3
 entry _start
 
+include "src/utils.asm"
 include "src/syscalls.asm"
 include "src/terminal.asm"
-include "src/utils.asm"
 include "src/render.asm"
 include "src/game.asm"
 

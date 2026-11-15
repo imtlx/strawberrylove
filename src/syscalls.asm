@@ -18,18 +18,10 @@ macro exit c {
 }
 
 macro write fd, buffer, len {
-        match , len \{
-		mov edi, fd
-		mov rsi, buffer
-		mov edx, buffer#_len
-                syscall SYS_write
-        \}
-        match any, len \{
-		mov edi, fd
-		mov rsi, buffer
-		mov edx, len
-                syscall SYS_write
-        \}
+	mov edi, fd
+	mov rsi, buffer
+	mov edx, len
+	syscall SYS_write
 }
 
 macro read fd, buffer, len {
